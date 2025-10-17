@@ -63,11 +63,23 @@ async function getStats(sec, endpoint) {
             { key: "longestRun", value: "Longest Run"}
         ];
 
+        /*
         for (let i = 0; i < statsToDisplay.length; i++){
             const statDiv = document.createElement("div");
             statDiv.textContent = `${statsToDisplay[i].value} = ${stats[statsToDisplay[i].key]}`;
             sec.appendChild(statDiv);
         }
+        */
+       
+       statsToDisplay.forEach((stat) => {
+        // stat represents each object {key: ***; value: ***}
+        const statDiv = document.createElement("div");
+        statDiv.textContent = `${stat.value}: ${stats[stat.key]}`;
+        sec.appendChild(statDiv);
+       });
+
+
+
 
         /* 
         // Iterating approach to display stats
