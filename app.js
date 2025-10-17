@@ -70,16 +70,13 @@ async function getStats(sec, endpoint) {
             sec.appendChild(statDiv);
         }
         */
-       
+
        statsToDisplay.forEach((stat) => {
         // stat represents each object {key: ***; value: ***}
         const statDiv = document.createElement("div");
         statDiv.textContent = `${stat.value}: ${stats[stat.key]}`;
         sec.appendChild(statDiv);
        });
-
-
-
 
         /* 
         // Iterating approach to display stats
