@@ -120,6 +120,9 @@ async function sendData(formData) {
         const response = await fetch(post_url, {
             method: "POST",
             body: formData,
+            headers: {
+                "Content-type": "application/json"
+            }
         });
 
         if (!response.ok) {
