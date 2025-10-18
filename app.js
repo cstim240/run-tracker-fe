@@ -141,11 +141,19 @@ function acquireFormData() {
         const formData = new FormData(event.target);
         // this form data isn't ready for submission, it is currently a special browser object, not directly JSON-serializable
         // JSON serializaiton is the process of converting an object's state into a JSON string which can be stored or transmitted
+
+        //it goes from special browser object to Plain Javascript object to JSON 
+        const formData_js = Object.fromEntries(formData);
+        console.log(`formData_js: ${formData_js}`);
+
+        //then we turn it into JSON
+        const formData_JSON = JSON.stringify(formData_js);
+
         for (let [key, value] of formData.entries()){
             console.log(key, value);
         }
         // we can also append data here if some of the inputs are empty...
-        sendData(formData);
+        sendData(formData_JSON);
     });
 }
 
