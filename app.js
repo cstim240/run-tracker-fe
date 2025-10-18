@@ -114,5 +114,42 @@ function addListenersToStatButtons(){
     nav.forEach((button) => button.addEventListener('click', () => fillDashBoard(button.textContent)));
 }
 
+async function sendData(formData) {
+    const post_url = 'http://localhost:8080/runs';
+    try {
+        const response = await fetch(post_url, {
+            method: "POST",
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        } 
+
+        console.log(await response.json());
+    } catch (e) {
+        console.log('ERROR: ' + e.message);
+    } finally {
+        console.log('Async function (POST) completed');
+    }
+}
+
+function acquireFormData() {
+    document.getElementById("createForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        // this form data isn't ready for submission, it is currently a special browser object, not directly JSON-serializable
+        // JSON serializaiton is the process of converting an object's state into a JSON string which can be stored or transmitted
+        for (let [key, value] of formData.entries()){
+            console.log(key, value);
+        }
+        // we can also append data here if some of the inputs are empty...
+        sendData(formData);
+    });
+}
+
 fillTable();
 addListenersToStatButtons();
+
+acquireFormData();
