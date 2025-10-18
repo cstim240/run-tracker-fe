@@ -109,10 +109,10 @@ function fillDashBoard(btnTxt) {
 
 }
 
-function addListenersToButtons(){
+function addListenersToStatButtons(){
     const nav = document.querySelectorAll('nav button');
     nav.forEach((button) => button.addEventListener('click', () => fillDashBoard(button.textContent)));
 }
 
 fillTable();
-addListenersToButtons();
+addListenersToStatButtons();
