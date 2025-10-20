@@ -39,31 +39,33 @@
         </section>
 
         <section>
-
+            <form id="createForm">
+                <h2>Add</h2>
+                <fieldset>
+                    <legend>Required</legend>
+                    <label>Date: </label>
+                    <input name="date" type="date" required/>
+                    <label>Distance: </label>
+                    <input name="distance" type="number" required/>
+                    <label>Duration: </label>
+                    <input name="duration" type="number" required/>
+                </fieldset>
+                <fieldset>
+                    <legend>Optional</legend>
+                    <label>Location: </label>
+                    <input name="location" type="text" />
+                    <label>Weather: </label>
+                    <input name="weather" type="text" />
+                    <label>Notes: </label>
+                    <input name="notes" type="text" />
+                </fieldset>
+                <!--Using the action button is the 'old school way': the con is you have no control over the response-->
+                <input type="submit" value="Post run"/>
+            </form>
         </section>
-        <form id="createForm">
-            <h2>Add</h2>
-            <fieldset>
-                <legend>Required</legend>
-                <label>Date: </label>
-                <input name="date" type="date" required/>
-                <label>Distance: </label>
-                <input name="distance" type="number" required/>
-                <label>Duration: </label>
-                <input name="duration" type="number" required/>
-            </fieldset>
-            <fieldset>
-                <legend>Optional</legend>
-                <label>Location: </label>
-                <input name="location" type="text" />
-                <label>Weather: </label>
-                <input name="weather" type="text" />
-                <label>Notes: </label>
-                <input name="notes" type="text" />
-            </fieldset>
-            <!--Using the action button is the 'old school way': the con is you have no control over the response-->
-            <input type="submit" value="Post run"/>
-        </form>
+
+        
+        
     </main>
     <footer>
         <p><a href="https://github.com/cstim240/run-tracker-fe">By Tim</a></p>
