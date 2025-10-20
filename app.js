@@ -134,6 +134,8 @@ async function sendData(formData) {
         console.log('ERROR: ' + e.message);
     } finally {
         console.log('Async function (POST) completed');
+        alert("Run posted!");
+        fillTable();
     }
 }
 
