@@ -7,3 +7,8 @@ form input {
     display: block;
     margin-bottom: 5px;
 }
+
+#formDifficulty {
+    display: flex;
+    margin-right: 15px;
+}
