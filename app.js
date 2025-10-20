@@ -162,7 +162,29 @@ function acquireFormData() {
     });
 }
 
+function addListenerToDeleteButtons() {
+    const deleteAllBtn = document.getElementById("delAllBtn");
+    const deleteAllURL = "http://localhost:8080/runs";
+    deleteAllBtn.addEventListener("click", () => {
+        deleteAllListener(deleteAllURL);
+    });
+}
+
+async function deleteAllListener(url){
+    try {
+        const response = await fetch(url, {
+                method: "DELETE"
+        });
+        } catch (error) {
+            console.log('ERROR: ' + error.message);
+        } finally {
+            fillTable();
+            alert("Deleted ALL the runs!");
+        }
+}
+
+
 fillTable();
 addListenersToStatButtons();
-
 acquireFormData();
+addListenerToDeleteButtons();
