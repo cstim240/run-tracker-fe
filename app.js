@@ -21,6 +21,16 @@ async function getRuns(tbody) {
                 tableCell.textContent = run[field]; //can be accessed with dot notation too
                 tableRow.append(tableCell);
             }
+            // for each run we also want to append a button in the last column for deletion + event listener
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "X";
+            deleteBtn.classList.add("runDelBtn");
+            deleteBtn.addEventListener("click", () => {
+                deleteRun(run.id);
+            });
+            console.log(`Run id: ${run.id}`);
+            tableRow.append(deleteBtn);
+            
             tbody.appendChild(tableRow);
         }
 
@@ -30,6 +40,24 @@ async function getRuns(tbody) {
         // this will still run despite catching an error
         console.log('Async function completed');
         alert('Table filled!')
+    }
+}
+
+async function deleteRun(id){
+    const url = "http://localhost:8080/runs/";
+    try {
+        const response = await fetch(url + id, {
+            method: "DELETE"
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.message}`);
+        }
+    } catch (e){
+        console.log(`Error! ${e.message}`);
+    } finally {
+        console.log(`Successfully deleted run id: ${id}`);
+        alert(`Delete successful! Bye bye run ${id}`);
+        fillTable();
     }
 }
 
@@ -168,6 +196,10 @@ function addListenerToDeleteButtons() {
     deleteAllBtn.addEventListener("click", () => {
         deleteAllListener(deleteAllURL);
     });
+
+    //to do: add delete button to each table row, then add eventlisteners to them
+    const deleteBtns = document.querySelectorAll(".runDelBtn");
+
 }
 
 async function deleteAllListener(url){
@@ -175,12 +207,16 @@ async function deleteAllListener(url){
         const response = await fetch(url, {
                 method: "DELETE"
         });
-        } catch (error) {
-            console.log('ERROR: ' + error.message);
-        } finally {
-            fillTable();
-            alert("Deleted ALL the runs!");
+
+        if (!response.ok){
+            throw new Error(`HTTP Error: ${response.status}`);
         }
+    } catch (error) {
+        console.log('ERROR: ' + error.message);
+    } finally {
+        fillTable();
+        alert("Deleted ALL the runs!");
+    }
 }
 
 

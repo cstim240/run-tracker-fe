@@ -1,5 +1,10 @@
-table, td, th {
+table{
     border: 1px solid black;
+    padding: 5px;
+}
+
+td {
+    padding: 5px;
 }
 
 form label,
@@ -11,4 +16,8 @@ form input {
 #formDifficulty {
     display: flex;
     margin-right: 15px;
+}
+
+.runDelBtn {
+    width: 100%;
 }
