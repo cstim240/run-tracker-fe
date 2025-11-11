@@ -1,3 +1,5 @@
+let allRuns = [];
+
 async function getRuns(tbody) {
     const allRuns_URL = 'http://localhost:8080/runs'
     tbody.textContent = '';
@@ -11,10 +13,11 @@ async function getRuns(tbody) {
 
         // await again - read the response stream, returns a promise which resolves
         const runs = await response.json();
-
+        allRuns = runs;
         for (const run of runs) { //for .. of gives the actual run objet
             // Create a row 
             const tableRow = document.createElement("tr");
+            tableRow.dataset.runId = run.id;
             for (const field in run){ // for .. in loops on the other hand, gives keys/property names and not values ie. (field is "id", "date", "distance" (property names))
                 // Create cells for each field
                 const tableCell = document.createElement("td");
@@ -87,11 +90,26 @@ async function editRun(id){
     // fill in form with run id's (may need to perform a get request)
     // not needed we already have the row data from the initial GET request
     fillForm(id, formElement);
-
-    
 }
 
-async function fillForm(id){
+function fillForm(id, formElement){
+    const runId = id;
+
+    // Find the full run object in the global allRuns array
+    const run = allRuns.find(r => r.id == runId);
+
+    // For each element inside formElement, set their textContent to the run attribute's value
+    document.getElementById('date').value = run.date;
+    document.getElementById('distance').value = run.distance;
+    document.getElementById('duration').value = run.duration;
+
+    document.getElementById('location').value = run.location;
+    document.getElementById('weather').value = run.weather;
+    document.getElementById('notes').value = run.notes;
+
+    const runDiff = run.difficulty;
+    const radio = document.querySelector(`input[name="difficulty"][value=${runDiff}]`);
+    if (radio) radio.checked = true;
 
 }
 
