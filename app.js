@@ -218,10 +218,12 @@ function addListenersToStatButtons(){
 }
 
 async function sendData(formData) {
-    const post_url = 'http://localhost:8080/runs';
+    const base_url = 'http://localhost:8080/runs';
+    const url = editingRunId === null ? base_url : `${base_url/editingRunId}`;
+    const method = editingRunId === null ? 'POST' : 'PUT';
     try {
-        const response = await fetch(post_url, {
-            method: "POST",
+        const response = await fetch(url, {
+            method: method, // either post or put
             body: formData,
             headers: {
                 "Content-type": "application/json"
@@ -232,6 +234,7 @@ async function sendData(formData) {
             throw new Error(`HTTP Error: ${response.status}`);
         } 
 
+        exitEditMode(); //after success, exit edit mode
         console.log(await response.json());
     } catch (e) {
         console.log('ERROR: ' + e.message);
