@@ -1,4 +1,11 @@
 let allRuns = [];
+let editingRunId = null; // keeps track if we are either editing or creating
+
+const form = document.getElementById('createForm');
+const submitBtn = document.getElementById('submitBtn');
+const cancelBtn = document.getElementById('cancelBtn');
+
+cancelBtn.addEventListener("click", exitEditMode);
 
 async function getRuns(tbody) {
     const allRuns_URL = 'http://localhost:8080/runs'
@@ -14,6 +21,10 @@ async function getRuns(tbody) {
         // await again - read the response stream, returns a promise which resolves
         const runs = await response.json();
         allRuns = runs;
+
+        //Clear the table
+        tbody.innerHTML = '';
+
         for (const run of runs) { //for .. of gives the actual run objet
             // Create a row 
             const tableRow = document.createElement("tr");
@@ -87,12 +98,24 @@ async function editRun(id){
         block: 'start'
     });
 
+    // switch mode and change global button content
+    editingRunId = id;
+    submitBtn.textContent = "Update Run";
+    cancelBtn.style.display = "inline";
+
     // fill in form with run id's (may need to perform a get request)
     // not needed we already have the row data from the initial GET request
-    fillForm(id, formElement);
+    fillForm(id);
 }
 
-function fillForm(id, formElement){
+function exitEditMode() {
+    editingRunId = null;
+    submitBtn.textContent = "Add Run";
+    cancelBtn.style.display = "none";
+    form.reset();
+}
+
+function fillForm(id){
     const runId = id;
 
     // Find the full run object in the global allRuns array
