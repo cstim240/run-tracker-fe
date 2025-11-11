@@ -76,6 +76,24 @@ async function deleteRun(id){
     }
 }
 
+async function editRun(id){
+    // scroll to the Form element
+    const formElement = document.getElementById("createForm");
+    formElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+
+    // fill in form with run id's (may need to perform a get request)
+    fillForm(id, formElement);
+    
+    
+}
+
+async function fillForm(id){
+
+}
+
 function fillTable() {
     const tableBody = document.querySelector('tbody');
     tableBody.textContent = 'Loading... '
