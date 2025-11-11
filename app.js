@@ -85,8 +85,9 @@ async function editRun(id){
     });
 
     // fill in form with run id's (may need to perform a get request)
+    // not needed we already have the row data from the initial GET request
     fillForm(id, formElement);
-    
+
     
 }
 
