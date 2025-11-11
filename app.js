@@ -298,7 +298,10 @@ async function deleteAllListener(url){
 }
 
 
-fillTable();
-addListenersToStatButtons();
-acquireFormData(); // adds event listener to form for creating new runs
-addListenerToDeleteButtons();
+document.addEventListener('DOMContentLoaded', () => {
+    form.reset();
+    fillTable();
+    addListenersToStatButtons();
+    acquireFormData(); // adds event listener to form for creating new runs
+    addListenerToDeleteButtons();
+});
