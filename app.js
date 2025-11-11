@@ -90,7 +90,7 @@ async function deleteRun(id){
     }
 }
 
-async function editRun(id){
+function editRun(id){
     // scroll to the Form element
     const formElement = document.getElementById("createForm");
     formElement.scrollIntoView({
@@ -134,6 +134,7 @@ function fillForm(id){
     const radio = document.querySelector(`input[name="difficulty"][value=${runDiff}]`);
     if (radio) radio.checked = true;
 
+    fillTable();
 }
 
 function fillTable() {
@@ -219,7 +220,7 @@ function addListenersToStatButtons(){
 
 async function sendData(formData) {
     const base_url = 'http://localhost:8080/runs';
-    const url = editingRunId === null ? base_url : `${base_url/editingRunId}`;
+    const url = editingRunId === null ? base_url : `${base_url}/${editingRunId}`;
     const method = editingRunId === null ? 'POST' : 'PUT';
     try {
         const response = await fetch(url, {
