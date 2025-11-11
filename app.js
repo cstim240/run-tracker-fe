@@ -21,15 +21,30 @@ async function getRuns(tbody) {
                 tableCell.textContent = run[field]; //can be accessed with dot notation too
                 tableRow.append(tableCell);
             }
-            // for each run we also want to append a button in the last column for deletion + event listener
+            // for each run we also want to append a button for deletion + event listener
+
+            const tableCellDel = document.createElement("td");
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "X";
             deleteBtn.classList.add("runDelBtn");
             deleteBtn.addEventListener("click", () => {
                 deleteRun(run.id);
             });
+            tableCellDel.append(deleteBtn);
+
+            // for each run we also want to append an edit button for editing
+            const tableCellEdit = document.createElement("td");
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "Edit";
+            editBtn.classList.add("runEditBtn");
+            editBtn.addEventListener("click", () => {
+                editRun(run.id);
+            });
+            tableCellEdit.append(editBtn);
+
             console.log(`Run id: ${run.id}`);
-            tableRow.append(deleteBtn);
+            tableRow.append(tableCellDel);
+            tableRow.append(tableCellEdit);
             
             tbody.appendChild(tableRow);
         }
@@ -222,5 +237,5 @@ async function deleteAllListener(url){
 
 fillTable();
 addListenersToStatButtons();
-acquireFormData();
+acquireFormData(); // adds event listener to form for creating new runs
 addListenerToDeleteButtons();
